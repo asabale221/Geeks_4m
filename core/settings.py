@@ -41,6 +41,8 @@ INSTALLED_APPS = [
 
     # apps
     "posts.apps.PostsConfig",
+    "users",
+
     # libs
 ]
 
