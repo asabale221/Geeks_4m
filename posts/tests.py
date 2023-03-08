@@ -16,30 +16,19 @@ class HelloTestCase(TestCase):
         self.assertEqual(response.headers["name"], expected_header)
 
     def test_get_index(self):
-        response_get = self.client.get(reverse("index-page"))
-        response_post = self.client.post(reverse("index-page"))
+        response = self.client.get(reverse("index-page"))
 
-        expected_get = "Главная страница"
-        expected_post = "Не тот метод запроса"
-
-        self.assertEqual(response_get.status_code, 200)
-        self.assertEqual(response_post.status_code, 200)
-        self.assertEqual(response_get.content.decode(), expected_get)
-        self.assertEqual(response_post.content.decode(), expected_post)
-
+        self.assertTemplateUsed(response, "posts/index.html")
+        self.assertEqual(response.status_code, 200)
 
     def test_get_about(self):
         response = self.client.get(reverse("about-page"))
 
-        expected_data = "About"
-
-        self.assertEqual(response.content.decode(), expected_data)
+        self.assertTemplateUsed(response, "posts/about.html")
         self.assertEqual(response.status_code, 200)
 
     def test_get_contacts(self):
         response = self.client.get(reverse("contacts-page"))
 
-        expected_data = "Contacts"
-
-        self.assertEqual(response.content.decode(), expected_data)
+        self.assertTemplateUsed(response, "posts/contacts.html")
         self.assertEqual(response.status_code, 200)
