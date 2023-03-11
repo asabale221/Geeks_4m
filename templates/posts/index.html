@@ -17,9 +17,8 @@
 
     {% endfor %}
     <br>
+    <a href="{% url 'post-create' %}"><button>Создать пост</button></a><br>
+    {% include 'posts/includes/links_include.html' %}
 
-    {% include "posts/includes/links_include.html" %}
 
-
-    <button type="button"><a href="{% url 'post-create' %}">Создать пост</a></button><br>
 {% endblock %}

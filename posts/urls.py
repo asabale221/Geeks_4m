@@ -1,4 +1,5 @@
 from django.urls import path
+
 from posts.views import hello, IndexView, AboutView, get_contacts, PostDetailView, PostCreateView, PostDeleteView, PostUpdateView
 
 
