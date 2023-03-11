@@ -41,16 +41,15 @@ def hello(request):
 #     return render(request, "posts/index.html", context=context)
 
 class IndexView(generic.ListView):
-    # queryset = Post.objects.filter(status=True)
+    queryset = Post.objects.filter(status=True)
     context_object_name = "posts"
-    model = Post
     template_name = "posts/index.html"
 
     def get_context_data(self, **kwargs):
+        # or and not
         context = super().get_context_data(**kwargs)
-        context["form"] = PostForm()
+        context["title"] = "Просмотр поста"
         return context
-
 
 class PostDetailView(generic.DetailView):
     model = Post
@@ -62,13 +61,6 @@ class PostDetailView(generic.DetailView):
 
         post = Post.objects.get(pk=pk)  # Или post_id, если бы не было pk, нужен input hidden
         form = CommentForm(request.POST)
-
-        # name = request.POST.get("name", None)
-        # text = request.POST.get("text", None)
-
-        # if name and text:
-        #     comment = Comment.objects.create(name=name, text=text, post=post)
-        #     comment.save()
 
         if form.is_valid():
             pre_saved_comment = form.save(commit=False)
@@ -110,16 +102,6 @@ class AboutView(generic.TemplateView):
     extra_context = {
         "title": "Страница о нас",
     }
-
-
-# CRUD - Create, Retrieve, Update, Delete
-
-# def get_about(request):
-#     context = {
-#         "title": "Страница о нас",
-#     }
-#     return render(request, "posts/about.html", context=context)
-
 
 def get_contacts(request):
     return render(request, "posts/contacts.html", {"title": "Контакты"})
