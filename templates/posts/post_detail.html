@@ -13,7 +13,7 @@
     <p>{{ post.content }}</p><br>
 
 
-    {% for comment in post.posts_comment.all|slice:"0:4" %}
+    {% for comment in post.post_comment.all|slice:"0:4" %}
         <div class="card">
             <div class="card-header">
                 {{ comment.created }}
@@ -26,7 +26,7 @@
         </div><br>
     {% endfor %}
     <br>
-
+    {% if user.is_authenticated %}
     <form action="" method="post">
         {% csrf_token %}
         <!-- <input type="hidden" value="{{ post.id }}" name="post_id">
@@ -58,7 +58,9 @@
     <a href="{% url 'post-update' post.id %}">
         <button>Обновить пост</button>
     </a><br>
-
-    {% include 'posts/includes/links_include.html' %}
+    {% else %}
+    <p>Чтобы оставить коментарий войдите в аккаунт!</p>
+    {% endif %}
+    {% include 'posts/includes/links_includes.html' %}
 
 {% endblock %}
